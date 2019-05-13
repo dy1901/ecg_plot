@@ -7,7 +7,7 @@
 * Support saving PNG and SVG to disk
 
 ## Notice
-* Input data should be m x n matrix, which m is lead count of EGC and n is length of single lead signal.
+* Input data should be m x n matrix, which m is lead count of ECG and n is length of single lead signal.
 * Default sample rate is 500 Hz.
 
 ## Example
