@@ -5,6 +5,8 @@
 ## Plot standard ECG chart from data.
 * Support both direct plotting and plotting SVG preview in browser (currently only works on mac)
 * Support saving PNG and SVG to disk
+* Support customer defined lead order
+* Support customer defined column count
 
 ## Notice
 * Input data should be m x n matrix, which m is lead count of ECG and n is length of single lead signal.
