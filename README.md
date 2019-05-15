@@ -49,4 +49,6 @@ ecg = load_data() # load data should be implemented by yourself
 ecg_plot.plot_12(ecg, sample_rate = 500, title = 'ECG 12')
 ecg_plot.save_as_png('example_ecg','tmp/')
 
+```
+
 ### License: MIT
