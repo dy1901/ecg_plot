@@ -40,7 +40,7 @@ ecg_plot.plot_1(ecg[1], sample_rate=500, title = 'ECG')
 ecg_plot.show()
 ```
 
-#### save result as png
+#### Save result as png
 
 ```
 import ecg_plot
