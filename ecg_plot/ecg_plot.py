@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
@@ -31,6 +33,16 @@ def plot_12(
         lead_order  = None,
         columns     = 2
         ):
+    """Plot multi lead ECG chart.
+    # Arguments
+        ecg        : m x n ECG signal data, which m is number of leads and n is length of signal.
+        sample_rate: Sample rate of the signal.
+        title      : Title which will be shown on top off chart
+        lead_index : Lead name array in the same order of ecg, will be shown on 
+            left of signal plot, defaults to ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
+        lead_order : Lead display order 
+        columns    : display columns, defaults to 2
+    """
     if not lead_order:
         lead_order = list(range(0,len(ecg)))
 
@@ -67,13 +79,19 @@ def plot_12(
         
 
 def plot_1(ecg, sample_rate=500, title = 'ECG'):
+    """Plot multi lead ECG chart.
+    # Arguments
+        ecg        : m x n ECG signal data, which m is number of leads and n is length of signal.
+        sample_rate: Sample rate of the signal.
+        title      : Title which will be shown on top off chart
+    """
     plt.figure(figsize=(15,2))
     plt.suptitle(title)
     plt.subplots_adjust(
         hspace = 0, 
         wspace = 0.04,
         left   = 0.04,  # the left side of the subplots of the figure
-        right  = 0.98,    # the right side of the subplots of the figure
+        right  = 0.98,  # the right side of the subplots of the figure
         bottom = 0.2,   # the bottom of the subplots of the figure
         top    = 0.88
         )
@@ -84,9 +102,13 @@ def plot_1(ecg, sample_rate=500, title = 'ECG'):
     
 DEFAULT_PATH = './'
 show_counter = 1
-def show_svg():
+def show_svg(tmp_path = DEFAULT_PATH):
+    """Plot multi lead ECG chart.
+    # Arguments
+        tmp_path: path for temporary saving the result svg file
+    """ 
     global show_counter
-    file_name = DEFAULT_PATH + "show_tmp_file_{}.svg".format(show_counter)
+    file_name = tmp_path + "show_tmp_file_{}.svg".format(show_counter)
     plt.savefig(file_name)
     os.system("open {}".format(file_name))
     show_counter += 1
@@ -97,12 +119,31 @@ def show():
 
 
 def save_as_png(file_name, path = DEFAULT_PATH):
+    """Plot multi lead ECG chart.
+    # Arguments
+        file_name: file_name
+        path     : path to save image, defaults to current folder
+    """
     plt.ioff()
     plt.savefig(path + file_name + '.png')
     plt.close()
 
 def save_as_svg(file_name, path = DEFAULT_PATH):
+    """Plot multi lead ECG chart.
+    # Arguments
+        file_name: file_name
+        path     : path to save image, defaults to current folder
+    """
     plt.ioff()
     plt.savefig(path + file_name + '.svg')
     plt.close()
 
+def save_as_jpg(file_name, path = DEFAULT_PATH):
+    """Plot multi lead ECG chart.
+    # Arguments
+        file_name: file_name
+        path     : path to save image, defaults to current folder
+    """
+    plt.ioff()
+    plt.savefig(path + file_name + '.jpg')
+    plt.close()
