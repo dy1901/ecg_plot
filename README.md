@@ -1,6 +1,6 @@
 # ECG plot
 
-![example 12 lead plot](/example_ecg.png)
+![example 12 lead plot](https://github.com/dy1901/ecg_plot/raw/master/example_ecg.png)
 
 ## Plot standard ECG chart from data.
 * Support both direct plotting and plotting SVG preview in browser (currently only works on mac)
