@@ -61,7 +61,7 @@ def plot_12(
             t_ax = ax[i//columns,i%columns]
         t_lead = lead_order[i]
         t_ax.set_ylabel(lead_index[t_lead])
-        t_ax.tick_params(axis='x',labelrotation=90)
+        t_ax.tick_params(axis='x',rotation=90)
         step = 1.0/sample_rate
         _ax_plot(t_ax, np.arange(0, len(ecg[t_lead])*step, step), ecg[t_lead])
         
