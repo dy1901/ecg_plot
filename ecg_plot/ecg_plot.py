@@ -7,7 +7,7 @@ import os
 from math import ceil 
 
 
-def _ax_plot(ax, x, y):
+def _ax_plot(ax, x, y, secs=10):
     ax.set_xticks(np.arange(0,11,0.2))    
     ax.set_yticks(np.arange(-2,3,0.5))
 
@@ -19,7 +19,7 @@ def _ax_plot(ax, x, y):
     ax.grid(which='minor', linestyle='-', linewidth='0.5', color=(1, 0.7, 0.7))
    
     ax.set_ylim(-1.8, 1.8)
-    ax.set_xlim(0, 10)
+    ax.set_xlim(0, secs)
 
     ax.plot(x,y, linewidth=0.5)
 
@@ -75,7 +75,7 @@ def plot_12(
         t_ax.set_ylabel(lead_index[t_lead])
         t_ax.tick_params(axis='x',rotation=90)
         step = 1.0/sample_rate
-        _ax_plot(t_ax, np.arange(0, len(ecg[t_lead])*step, step), ecg[t_lead])
+        _ax_plot(t_ax, np.arange(0, len(ecg[t_lead])*step, step), ecg[t_lead], seconds)
         
 
 def plot_1(ecg, sample_rate=500, title = 'ECG'):
@@ -95,10 +95,11 @@ def plot_1(ecg, sample_rate=500, title = 'ECG'):
         bottom = 0.2,   # the bottom of the subplots of the figure
         top    = 0.88
         )
+    seconds = len(ecg)/sample_rate
 
     ax = plt.subplot(1, 1, 1)
     step = 1.0/sample_rate
-    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg)
+    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg, seconds)
     
 DEFAULT_PATH = './'
 show_counter = 1
