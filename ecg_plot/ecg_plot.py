@@ -105,6 +105,8 @@ def plot(
     leads = len(lead_order)
     columns = 2
     display_factor = 2.5
+    display_factor = 1
+    line_width = 0.5
     fig, ax = plt.subplots(figsize=(secs*columns * display_factor, leads/columns * 25 / 27 * display_factor))
     display_factor = display_factor ** 0.5
     fig.subplots_adjust(
@@ -116,6 +118,7 @@ def plot(
         top    = 1
         )
 
+    fig.suptitle(title)
 
     x_min = 0
     x_max = 2*secs
@@ -152,18 +155,18 @@ def plot(
         x_offset = 0
         if(i > 5):
             x_offset = secs
-            ax.plot([secs, secs], [ecg[t_lead][0] + y_offset - 0.3, ecg[t_lead][0] + y_offset + 0.3], linewidth=1.25 * display_factor, color=color_line)
+            ax.plot([secs, secs], [ecg[t_lead][0] + y_offset - 0.3, ecg[t_lead][0] + y_offset + 0.3], linewidth=line_width * display_factor, color=color_line)
 
  
         t_lead = lead_order[i]
  
         step = 1.0/sample_rate
 
-        ax.text(x_offset + 0.07, y_offset - 0.5, lead_index[t_lead], fontsize=16 * display_factor)
+        ax.text(x_offset + 0.07, y_offset - 0.5, lead_index[t_lead], fontsize=12 * display_factor)
         ax.plot(
             np.arange(0, len(ecg[t_lead])*step, step) + x_offset, 
             ecg[t_lead] + y_offset,
-            linewidth=1.25 * display_factor, 
+            linewidth=line_width * display_factor, 
             color=color_line
             )
         
