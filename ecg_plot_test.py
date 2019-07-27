@@ -21,6 +21,6 @@ test_ecg = load_ecg_from_mat('example_ecg.mat')
 # ecg_plot.plot_12(test_ecg)
 # ecg_plot.show_svg()
 
-ecg_plot.plot(test_ecg[:,0:2500], style = 'bw')
-# ecg_plot.show()
+ecg_plot.plot(test_ecg, sample_rate = 500, title = 'ECG 12')
+ecg_plot.show()
 ecg_plot.save_as_png('example_ecg_1','tmp/')

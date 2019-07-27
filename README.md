@@ -30,6 +30,17 @@ ecg_plot.show()
 
 ```
 
+#### Plot 12 lead ECG compact version
+
+```
+import ecg_plot
+
+ecg = load_data() # load data should be implemented by yourself 
+ecg_plot.plot_(ecg, sample_rate = 500, title = 'ECG 12')
+ecg_plot.show()
+
+```
+
 #### Plot single lead ECG
 
 ```
