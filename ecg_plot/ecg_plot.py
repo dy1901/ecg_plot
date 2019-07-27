@@ -15,11 +15,11 @@ def _ax_plot(ax, x, y, secs=10):
     
     ax.xaxis.set_minor_locator(AutoMinorLocator(5))
 
-    ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
-    ax.grid(which='minor', linestyle='-', linewidth='0.5', color=(1, 0.7, 0.7))
-   
     ax.set_ylim(-1.8, 1.8)
     ax.set_xlim(0, secs)
+
+    ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
+    ax.grid(which='minor', linestyle='-', linewidth='0.5', color=(1, 0.7, 0.7))
 
     ax.plot(x,y, linewidth=0.5)
 
@@ -66,6 +66,8 @@ def plot_12(
         )
     fig.suptitle(title)
 
+    step = 1.0/sample_rate
+
     for i in range(0, len(lead_order)):
         if(columns == 1):
             t_ax = ax[i]
@@ -74,8 +76,96 @@ def plot_12(
         t_lead = lead_order[i]
         t_ax.set_ylabel(lead_index[t_lead])
         t_ax.tick_params(axis='x',rotation=90)
-        step = 1.0/sample_rate
+       
         _ax_plot(t_ax, np.arange(0, len(ecg[t_lead])*step, step), ecg[t_lead], seconds)
+
+def plot(
+        ecg, 
+        sample_rate = 500, 
+        title       = 'ECG 12', 
+        lead_index  = lead_index, 
+        lead_order  = None,
+        style       = None
+        ):
+    """Plot multi lead ECG chart.
+    # Arguments
+        ecg        : m x n ECG signal data, which m is number of leads and n is length of signal.
+        sample_rate: Sample rate of the signal.
+        title      : Title which will be shown on top off chart
+        lead_index : Lead name array in the same order of ecg, will be shown on 
+            left of signal plot, defaults to ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
+        lead_order : Lead display order 
+        columns    : display columns, defaults to 2
+        style      : display style, defaults to None, can be 'bw' which means black white
+    """
+
+    if not lead_order:
+        lead_order = list(range(0,len(ecg)))
+    secs    = len(ecg[0])/sample_rate
+    leads = len(lead_order)
+    columns = 2
+    display_factor = 2.5
+    fig, ax = plt.subplots(figsize=(secs*columns * display_factor, leads/columns * 25 / 27 * display_factor))
+    display_factor = display_factor ** 0.5
+    fig.subplots_adjust(
+        hspace = 0, 
+        wspace = 0,
+        left   = 0,  # the left side of the subplots of the figure
+        right  = 1,  # the right side of the subplots of the figure
+        bottom = 0,  # the bottom of the subplots of the figure
+        top    = 1
+        )
+
+
+    x_min = 0
+    x_max = 2*secs
+    y_min = -1 -11
+    y_max = 12.5 -11
+
+    if (style == 'bw'):
+        color_major = (0.4,0.4,0.4)
+        color_minor = (0.75, 0.75, 0.75)
+        color_line  = (0,0,0)
+    else:
+        color_major = (1,0,0)
+        color_minor = (1, 0.7, 0.7)
+        color_line  = (0,0,0.7)
+
+    ax.set_xticks(np.arange(x_min,x_max,0.2))    
+    ax.set_yticks(np.arange(y_min,y_max,0.5))
+
+    ax.minorticks_on()
+    
+    ax.xaxis.set_minor_locator(AutoMinorLocator(5))
+
+    ax.set_ylim(y_min,y_max)
+    ax.set_xlim(x_min,x_max)
+
+    ax.grid(which='major', linestyle='-', linewidth=1 * display_factor, color=color_major)
+    ax.grid(which='minor', linestyle='-', linewidth=1 * display_factor, color=color_minor)
+
+    for i in range(0, len(lead_order)):
+        y_offset = -2.25 * ceil(i%6)
+        if (y_offset < -5):
+            y_offset = y_offset + 0.25
+
+        x_offset = 0
+        if(i > 5):
+            x_offset = secs
+            ax.plot([secs, secs], [ecg[t_lead][0] + y_offset - 0.3, ecg[t_lead][0] + y_offset + 0.3], linewidth=1.25 * display_factor, color=color_line)
+
+ 
+        t_lead = lead_order[i]
+ 
+        step = 1.0/sample_rate
+
+        ax.text(x_offset + 0.07, y_offset - 0.5, lead_index[t_lead], fontsize=16 * display_factor)
+        ax.plot(
+            np.arange(0, len(ecg[t_lead])*step, step) + x_offset, 
+            ecg[t_lead] + y_offset,
+            linewidth=1.25 * display_factor, 
+            color=color_line
+            )
         
 
 def plot_1(ecg, sample_rate=500, title = 'ECG'):
