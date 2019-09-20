@@ -19,18 +19,23 @@ pip install ecg_plot
 
 ## Example
 
-#### Plot 12 lead ECG 
 
-```
-import ecg_plot
+#### Plot 12 lead ECG
 
-ecg = load_data() # load data should be implemented by yourself 
-ecg_plot.plot_12(ecg, sample_rate = 500, title = 'ECG 12')
-ecg_plot.show()
+params:
 
-```
-
-#### Plot 12 lead ECG compact version
+|ecg        | m x n ECG signal data, which m is number of leads and n is length of signal. |
+|sample_rate| Sample rate of the signal. |
+|title      | Title which will be shown on top off chart
+|lead_index | Lead name array in the same order of ecg, will be shown on 
+    left of signal plot, defaults to ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6'] |
+|lead_order | Lead display order |
+|columns    | display columns, defaults to 2 |
+|style      | display style, defaults to None, can be 'bw' which means black white |
+|row_height |   how many grid should a lead signal have |
+|show_lead_name | show lead name |
+|show_grid      | show grid |
+|show_separate_line  | show separate line |
 
 ```
 import ecg_plot
