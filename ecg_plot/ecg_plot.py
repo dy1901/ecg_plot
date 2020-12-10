@@ -185,14 +185,14 @@ def plot(
                     )
         
 
-def plot_1(ecg, sample_rate=500, title = 'ECG'):
+def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_width = 2):
     """Plot multi lead ECG chart.
     # Arguments
         ecg        : m x n ECG signal data, which m is number of leads and n is length of signal.
         sample_rate: Sample rate of the signal.
         title      : Title which will be shown on top off chart
     """
-    plt.figure(figsize=(15,2))
+    plt.figure(figsize=(fig_width,fig_width))
     plt.suptitle(title)
     plt.subplots_adjust(
         hspace = 0, 
