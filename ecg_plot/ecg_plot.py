@@ -191,6 +191,8 @@ def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2):
         ecg        : m x n ECG signal data, which m is number of leads and n is length of signal.
         sample_rate: Sample rate of the signal.
         title      : Title which will be shown on top off chart
+        fig_width  : The width of the plot
+        fig_height : The height of the plot
     """
     plt.figure(figsize=(fig_width,fig_height))
     plt.suptitle(title)
@@ -226,14 +228,16 @@ def show():
     plt.show()
 
 
-def save_as_png(file_name, path = DEFAULT_PATH):
+def save_as_png(file_name, path = DEFAULT_PATH, dpi = 100, layout='tight'):
     """Plot multi lead ECG chart.
     # Arguments
         file_name: file_name
         path     : path to save image, defaults to current folder
+        dpi      : set dots per inch (dpi) for the saved image
+        layout   : Set equal to "tight" to include ax labels on saved image
     """
     plt.ioff()
-    plt.savefig(path + file_name + '.png')
+    plt.savefig(path + file_name + '.png', dpi = dpi, bbox_inches=layout)
     plt.close()
 
 def save_as_svg(file_name, path = DEFAULT_PATH):
