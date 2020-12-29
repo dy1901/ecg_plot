@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='ecg_plot',
-    version='0.2.5',
+    version='0.2.6',
     # scripts=['ecg_plot'] ,
     author="dy1901",
     author_email="dy1901@gmail.com",
