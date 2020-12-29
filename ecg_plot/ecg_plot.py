@@ -9,7 +9,7 @@ from math import ceil
 
 def _ax_plot(ax, x, y, secs=10, lwidth=0.5, amplitude_ecg = 1.8):
     ax.set_xticks(np.arange(0,11,0.2))    
-    ax.set_yticks(np.arange(-2,3,0.5))
+    ax.set_yticks(np.arange(-ceil(amplitude_ecg),ceil(amplitude_ecg),0.5))
 
     #ax.set_yticklabels([])
     #ax.set_xticklabels([])
