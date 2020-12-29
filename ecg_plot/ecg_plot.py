@@ -7,21 +7,24 @@ import os
 from math import ceil 
 
 
-def _ax_plot(ax, x, y, secs=10):
+def _ax_plot(ax, x, y, secs=10, lwidth=0.5, amplitude_ecg = 1.8):
     ax.set_xticks(np.arange(0,11,0.2))    
     ax.set_yticks(np.arange(-2,3,0.5))
+
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
 
     ax.minorticks_on()
     
     ax.xaxis.set_minor_locator(AutoMinorLocator(5))
 
-    ax.set_ylim(-1.8, 1.8)
+    ax.set_ylim(-amplitude_ecg, amplitude_ecg)
     ax.set_xlim(0, secs)
 
     ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
     ax.grid(which='minor', linestyle='-', linewidth='0.5', color=(1, 0.7, 0.7))
 
-    ax.plot(x,y, linewidth=0.5)
+    ax.plot(x,y, linewidth=lwidth)
 
 
 lead_index = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
@@ -185,7 +188,7 @@ def plot(
                     )
         
 
-def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2):
+def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2, line_w = 0.5, ecg_amp = 1.8):
     """Plot multi lead ECG chart.
     # Arguments
         ecg        : m x n ECG signal data, which m is number of leads and n is length of signal.
@@ -207,8 +210,9 @@ def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2):
     seconds = len(ecg)/sample_rate
 
     ax = plt.subplot(1, 1, 1)
+    #plt.rcParams['lines.linewidth'] = 5
     step = 1.0/sample_rate
-    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg, seconds)
+    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg, seconds, line_w, ecg_amp)
     
 DEFAULT_PATH = './'
 show_counter = 1
