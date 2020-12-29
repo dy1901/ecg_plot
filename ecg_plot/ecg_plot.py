@@ -7,9 +7,9 @@ import os
 from math import ceil 
 
 
-def _ax_plot(ax, x, y, secs=10, lwidth=0.5, amplitude_ecg = 1.8):
-    ax.set_xticks(np.arange(0,11,0.2))    
-    ax.set_yticks(np.arange(-ceil(amplitude_ecg),ceil(amplitude_ecg),0.5))
+def _ax_plot(ax, x, y, secs=10, lwidth=0.5, amplitude_ecg = 1.8, time_ticks =0.2):
+    ax.set_xticks(np.arange(0,11,time_ticks))    
+    ax.set_yticks(np.arange(-ceil(amplitude_ecg),ceil(amplitude_ecg),1.0))
 
     #ax.set_yticklabels([])
     #ax.set_xticklabels([])
@@ -188,7 +188,7 @@ def plot(
                     )
         
 
-def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2, line_w = 0.5, ecg_amp = 1.8):
+def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2, line_w = 0.5, ecg_amp = 1.8, timetick = 0.2):
     """Plot multi lead ECG chart.
     # Arguments
         ecg        : m x n ECG signal data, which m is number of leads and n is length of signal.
@@ -212,7 +212,7 @@ def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2, 
     ax = plt.subplot(1, 1, 1)
     #plt.rcParams['lines.linewidth'] = 5
     step = 1.0/sample_rate
-    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg, seconds, line_w, ecg_amp)
+    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg, seconds, line_w, ecg_amp,timetick)
     
 DEFAULT_PATH = './'
 show_counter = 1
