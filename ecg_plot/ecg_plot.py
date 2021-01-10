@@ -115,7 +115,7 @@ def plot(
         lead_order = list(range(0,len(ecg)))
     secs  = len(ecg[0])/sample_rate
     leads = len(lead_order)
-    rows  = ceil(leads/columns)
+    rows  = int(ceil(leads/columns))
     # display_factor = 2.5
     display_factor = 1
     line_width = 0.5
