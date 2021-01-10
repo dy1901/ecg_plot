@@ -7,21 +7,24 @@ import os
 from math import ceil 
 
 
-def _ax_plot(ax, x, y, secs=10):
-    ax.set_xticks(np.arange(0,11,0.2))    
-    ax.set_yticks(np.arange(-2,3,0.5))
+def _ax_plot(ax, x, y, secs=10, lwidth=0.5, amplitude_ecg = 1.8, time_ticks =0.2):
+    ax.set_xticks(np.arange(0,11,time_ticks))    
+    ax.set_yticks(np.arange(-ceil(amplitude_ecg),ceil(amplitude_ecg),1.0))
+
+    #ax.set_yticklabels([])
+    #ax.set_xticklabels([])
 
     ax.minorticks_on()
     
     ax.xaxis.set_minor_locator(AutoMinorLocator(5))
 
-    ax.set_ylim(-1.8, 1.8)
+    ax.set_ylim(-amplitude_ecg, amplitude_ecg)
     ax.set_xlim(0, secs)
 
     ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
     ax.grid(which='minor', linestyle='-', linewidth='0.5', color=(1, 0.7, 0.7))
 
-    ax.plot(x,y, linewidth=0.5)
+    ax.plot(x,y, linewidth=lwidth)
 
 
 lead_index = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
@@ -185,14 +188,16 @@ def plot(
                     )
         
 
-def plot_1(ecg, sample_rate=500, title = 'ECG'):
+def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2, line_w = 0.5, ecg_amp = 1.8, timetick = 0.2):
     """Plot multi lead ECG chart.
     # Arguments
         ecg        : m x n ECG signal data, which m is number of leads and n is length of signal.
         sample_rate: Sample rate of the signal.
         title      : Title which will be shown on top off chart
+        fig_width  : The width of the plot
+        fig_height : The height of the plot
     """
-    plt.figure(figsize=(15,2))
+    plt.figure(figsize=(fig_width,fig_height))
     plt.suptitle(title)
     plt.subplots_adjust(
         hspace = 0, 
@@ -205,8 +210,9 @@ def plot_1(ecg, sample_rate=500, title = 'ECG'):
     seconds = len(ecg)/sample_rate
 
     ax = plt.subplot(1, 1, 1)
+    #plt.rcParams['lines.linewidth'] = 5
     step = 1.0/sample_rate
-    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg, seconds)
+    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg, seconds, line_w, ecg_amp,timetick)
     
 DEFAULT_PATH = './'
 show_counter = 1
@@ -226,14 +232,16 @@ def show():
     plt.show()
 
 
-def save_as_png(file_name, path = DEFAULT_PATH):
+def save_as_png(file_name, path = DEFAULT_PATH, dpi = 100, layout='tight'):
     """Plot multi lead ECG chart.
     # Arguments
         file_name: file_name
         path     : path to save image, defaults to current folder
+        dpi      : set dots per inch (dpi) for the saved image
+        layout   : Set equal to "tight" to include ax labels on saved image
     """
     plt.ioff()
-    plt.savefig(path + file_name + '.png')
+    plt.savefig(path + file_name + '.png', dpi = dpi, bbox_inches=layout)
     plt.close()
 
 def save_as_svg(file_name, path = DEFAULT_PATH):
