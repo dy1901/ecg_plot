@@ -34,7 +34,10 @@ def plot_12(
         title       = 'ECG 12', 
         lead_index  = lead_index, 
         lead_order  = None,
-        columns     = 2
+        columns     = 2,
+        speed = 50,
+        voltage = 20,
+        line_width = 0.6
         ):
     """Plot multi lead ECG chart.
     # Arguments
@@ -45,6 +48,9 @@ def plot_12(
             left of signal plot, defaults to ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
         lead_order : Lead display order 
         columns    : display columns, defaults to 2
+        speed      : signal speed on display, defaults to 50 mm / sec
+        voltage    : signal voltage on display, defaults to 20 mm / mV
+        line_width : line width, default to 0.6
     """
     if not lead_order:
         lead_order = list(range(0,len(ecg)))
@@ -57,7 +63,8 @@ def plot_12(
         ceil(len(lead_order)/columns),columns,
         sharex=True, 
         sharey=True,
-        figsize=(0.7*seconds*columns, 1.1*leads/columns)
+        figsize=((speed/25)*seconds*columns,    # 1 inch= 25,4 mm. Rounded to 25 for simplicity
+            (4.1*voltage/25)*leads/columns)     # 1 subplot usually contains values in range of (-2,2) mV
         )
     fig.subplots_adjust(
         hspace = 0, 
