@@ -270,3 +270,14 @@ def save_as_jpg(file_name, path = DEFAULT_PATH):
     plt.ioff()
     plt.savefig(path + file_name + '.jpg')
     plt.close()
+    
+def to_base64(**kwargs):
+    from io import BytesIO
+    from base64 import b64encode
+    plt.ioff()
+    bytes_io = BytesIO()
+    plt.savefig(bytes_io, **kwargs)
+    bytes_io.seek(0)
+    base64_content = b64encode(bytes_io.read()).decode('utf-8')
+    plt.close()
+    return base64_content
