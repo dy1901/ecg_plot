@@ -278,6 +278,6 @@ def to_base64(**kwargs):
     bytes_io = BytesIO()
     plt.savefig(bytes_io, **kwargs)
     bytes_io.seek(0)
-    base64_content = base64.b64encode(bytes_io.read()).decode('utf-8')
+    base64_content = b64encode(bytes_io.read()).decode('utf-8')
     plt.close()
     return base64_content
