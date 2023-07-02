@@ -257,7 +257,7 @@ def save_as_png(file_name, path = DEFAULT_PATH, dpi = 100, layout='tight'):
         layout   : Set equal to "tight" to include ax labels on saved image
     """
     plt.ioff()
-    pad_inches = 0.1
+    pad_inches = 0.1  # it's the default
     if(layout != 'tight'):
         plt.axis('off')
         pad_inches = 0
