@@ -7,22 +7,23 @@ import os
 from math import ceil 
 
 
-def _ax_plot(ax, x, y, secs=10, lwidth=0.5, amplitude_ecg = 1.8, time_ticks =0.2):
-    ax.set_xticks(np.arange(0,11,time_ticks))    
-    ax.set_yticks(np.arange(-ceil(amplitude_ecg),ceil(amplitude_ecg),1.0))
-
-    #ax.set_yticklabels([])
-    #ax.set_xticklabels([])
-
-    ax.minorticks_on()
+def _ax_plot(ax, x, y, secs=10, lwidth=0.5, amplitude_ecg = 1.8, time_ticks =0.2, show_grid=True):
     
-    ax.xaxis.set_minor_locator(AutoMinorLocator(5))
-
     ax.set_ylim(-amplitude_ecg, amplitude_ecg)
     ax.set_xlim(0, secs)
+    
+    if(show_grid):
+        ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
+        ax.grid(which='minor', linestyle='-', linewidth='0.5', color=(1, 0.7, 0.7))
 
-    ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
-    ax.grid(which='minor', linestyle='-', linewidth='0.5', color=(1, 0.7, 0.7))
+        ax.set_xticks(np.arange(0,11,time_ticks))    
+        ax.set_yticks(np.arange(-ceil(amplitude_ecg),ceil(amplitude_ecg),1.0))
+
+        ax.set_yticklabels([])
+        ax.set_xticklabels([])
+
+        ax.minorticks_on()
+        ax.xaxis.set_minor_locator(AutoMinorLocator(5))
 
     ax.plot(x,y, linewidth=lwidth)
 
@@ -195,7 +196,15 @@ def plot(
                     )
         
 
-def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2, line_w = 0.5, ecg_amp = 1.8, timetick = 0.2):
+def plot_1(ecg,
+           sample_rate=500,
+           title = 'ECG',
+           fig_width = 15,
+           fig_height = 2,
+           line_w = 0.5,
+           ecg_amp = 1.8,
+           timetick = 0.2,
+           show_grid=True):
     """Plot multi lead ECG chart.
     # Arguments
         ecg        : m x n ECG signal data, which m is number of leads and n is length of signal.
@@ -219,7 +228,7 @@ def plot_1(ecg, sample_rate=500, title = 'ECG', fig_width = 15, fig_height = 2, 
     ax = plt.subplot(1, 1, 1)
     #plt.rcParams['lines.linewidth'] = 5
     step = 1.0/sample_rate
-    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg, seconds, line_w, ecg_amp,timetick)
+    _ax_plot(ax,np.arange(0,len(ecg)*step,step),ecg, seconds, line_w, ecg_amp,timetick, show_grid)
     
 DEFAULT_PATH = './'
 show_counter = 1
@@ -248,7 +257,11 @@ def save_as_png(file_name, path = DEFAULT_PATH, dpi = 100, layout='tight'):
         layout   : Set equal to "tight" to include ax labels on saved image
     """
     plt.ioff()
-    plt.savefig(path + file_name + '.png', dpi = dpi, bbox_inches=layout)
+    pad_inches = 0.1
+    if(layout != 'tight'):
+        plt.axis('off')
+        pad_inches = 0
+    plt.savefig(path + file_name + '.png', dpi = dpi, bbox_inches=layout, pad_inches=pad_inches)
     plt.close()
 
 def save_as_svg(file_name, path = DEFAULT_PATH):
