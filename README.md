@@ -3,10 +3,10 @@
 SVG-first ECG charts for research, with pandas/NumPy input, physical scales,
 annotations, and optional Matplotlib support. Python 3.10 or newer.
 
-![Twelve-lead ECG with a full-length II rhythm strip](docs/images/12lead.png)
+![Twelve-lead ECG with a full-length II rhythm strip](docs/images/12lead.svg)
 
 *A 10-second recording shown in sequential lead panels, with a full-length II
-rhythm strip. [Open the vector SVG](docs/images/12lead.svg).*
+rhythm strip. [Open the SVG](docs/images/12lead.svg) · [PNG fallback](docs/images/12lead.png).*
 
 ## Why SVG first?
 
@@ -67,9 +67,9 @@ chart = ecg_plot.plot(
 chart  # Displays inline in a notebook
 ```
 
-![Two DataFrame columns plotted as aligned ECG leads](docs/images/pandas-stacked.png)
+![Two DataFrame columns plotted as aligned ECG leads](docs/images/pandas-stacked.svg)
 
-[Open the vector SVG](docs/images/pandas-stacked.svg).
+[Open the SVG](docs/images/pandas-stacked.svg) · [PNG fallback](docs/images/pandas-stacked.png).
 
 Use pandas to select and reorder leads: `df[['II', 'I', 'V1']]`. A Series such
 as `df['II']` produces a single-lead chart, using the Series name as its label.
@@ -220,10 +220,10 @@ chart.add_annotations([
 ])
 ```
 
-![Single-lead ECG with an example event and a shaded review window](docs/images/annotations.png)
+![Single-lead ECG with an example event and a shaded review window](docs/images/annotations.svg)
 
 *Illustrative markers, not clinical annotations.
-[Open the vector SVG](docs/images/annotations.svg).*
+[Open the SVG](docs/images/annotations.svg) · [PNG fallback](docs/images/annotations.png).*
 
 Annotations accept a list of mappings or a DataFrame. Use `time`/`end_time` in
 original-record seconds, or `sample`/`end_sample` as original-record sample
@@ -321,7 +321,8 @@ the requested total because separate gaps are never bridged.
 ## Regenerating the examples
 
 The figures above are generated from the bundled CSV using the same plotting
-calls shown here. To rebuild the PNG previews and SVG originals from a checkout:
+calls shown here. The README embeds SVG directly for crisp scaling; PNG copies
+are provided as fallbacks. To rebuild both formats from a checkout:
 
 ```sh
 pip install -e '.[pandas,export]'
